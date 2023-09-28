@@ -57,6 +57,11 @@ public class Principal extends javax.swing.JFrame {
         btnLogin.setText("Login");
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         txtMensaje.setColumns(20);
         txtMensaje.setRows(5);
@@ -129,6 +134,12 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtUsuario.setText("");
+        txtContrasena.setText("");
+        txtMensaje.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     
 
