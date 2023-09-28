@@ -1,20 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.login.igu;
 
-/**
- *
- * @author bonza
- */
-public class Principal extends javax.swing.JFrame {
+import com.mycompany.login.logica.ControladoraLogica;
 
+public class Principal extends javax.swing.JFrame {
+    
+    ControladoraLogica controlLogic; 
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
+        
+        controlLogic =  new ControladoraLogica();
     }
 
     /**
@@ -53,6 +51,11 @@ public class Principal extends javax.swing.JFrame {
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -140,6 +143,14 @@ public class Principal extends javax.swing.JFrame {
         txtContrasena.setText("");
         txtMensaje.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        String usuario = txtUsuario.getText();
+        String contrasena = txtContrasena.getText();
+        
+        String mensaje = controlLogic.validarUsuario(usuario, contrasena);
+        txtMensaje.setText(mensaje);
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     
 
