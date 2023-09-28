@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.mycompany.login.persistencia;
 
 import com.mycompany.login.logica.Rol;
@@ -29,7 +32,7 @@ public class RolJpaController implements Serializable {
      public RolJpaController(){
         emf = Persistence.createEntityManagerFactory("loginPU");
     }
-    
+
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
