@@ -1,18 +1,19 @@
-
 package com.mycompany.login.igu;
 
 import com.mycompany.login.logica.ControladoraLogica;
+import com.mycompany.login.logica.Usuario;
 
 public class LoginInicial extends javax.swing.JFrame {
-    
-    ControladoraLogica controlLogic; 
+
+    ControladoraLogica controlLogic;
+
     /**
      * Creates new form Principal
      */
     public LoginInicial() {
         initComponents();
-        
-        controlLogic =  new ControladoraLogica();
+
+        controlLogic = new ControladoraLogica();
     }
 
     /**
@@ -147,12 +148,30 @@ public class LoginInicial extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String usuario = txtUsuario.getText();
         String contrasena = txtContrasena.getText();
-        
-        String mensaje = controlLogic.validarUsuario(usuario, contrasena);
-        txtMensaje.setText(mensaje);
+
+        Usuario usr = controlLogic.validarUsuario(usuario, contrasena);
+
+        if (usr != null) {
+            String rol = usr.getUnRol().getNombreRol();
+            if (rol.equals("admin")) {
+                PrincipalAdmin pantallaAdmin = new PrincipalAdmin(controlLogic, usr);
+                pantallaAdmin.setVisible(true);
+                pantallaAdmin.setLocationRelativeTo(null);
+                this.dispose();
+            }
+            if (rol.equals("user")) {
+                PrincipalUser pantallaUser = new PrincipalUser(controlLogic, usr);
+                pantallaUser.setVisible(true);
+                pantallaUser.setLocationRelativeTo(null);
+                this.dispose();
+            }
+        } else {
+            txtMensaje.setText("Usuario o Contraseña incorrectos.");
+        }
+
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLimpiar;

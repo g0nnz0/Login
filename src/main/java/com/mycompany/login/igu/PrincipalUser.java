@@ -1,21 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.login.igu;
 
-/**
- *
- * @author bonza
- */
+import com.mycompany.login.logica.ControladoraLogica;
+import com.mycompany.login.logica.Usuario;
+
+
 public class PrincipalUser extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PrincipalUser
-     */
-    public PrincipalUser() {
+    ControladoraLogica controlLogic;
+    Usuario usr;
+    
+    public PrincipalUser(ControladoraLogica controlLogic, Usuario usr) {
         initComponents();
+        this.controlLogic = controlLogic;
+        this.usr = usr;
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,6 +35,11 @@ public class PrincipalUser extends javax.swing.JFrame {
         txtNombreUser = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Sistema administrador de Usuarios");
@@ -62,6 +67,7 @@ public class PrincipalUser extends javax.swing.JFrame {
         });
 
         txtNombreUser.setEditable(false);
+        txtNombreUser.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtNombreUser.setText("jTextField1");
         txtNombreUser.setBorder(null);
 
@@ -118,8 +124,12 @@ public class PrincipalUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.txtNombreUser.setText(usr.getNombreUsuario());
+    }//GEN-LAST:event_formWindowOpened
 
     
 
