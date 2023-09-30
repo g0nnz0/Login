@@ -2,6 +2,8 @@ package com.mycompany.login.igu;
 
 import com.mycompany.login.logica.ControladoraLogica;
 import com.mycompany.login.logica.Usuario;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 public class PrincipalAdmin extends javax.swing.JFrame {
 
@@ -27,7 +29,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaUsuarios = new javax.swing.JTable();
         btnCrearUsuario = new javax.swing.JButton();
         btnEditarUsuario = new javax.swing.JButton();
         btnRecargarTabla = new javax.swing.JButton();
@@ -45,7 +47,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Sistema administrador de Usuarios");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -56,7 +58,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaUsuarios);
 
         btnCrearUsuario.setText("Crear nuevo Usuario");
 
@@ -68,6 +70,11 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         });
 
         btnRecargarTabla.setText("Recargar Tabla");
+        btnRecargarTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecargarTablaActionPerformed(evt);
+            }
+        });
 
         btnBorrarUsuario.setText("Borrar Usuario");
         btnBorrarUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -162,8 +169,16 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+        //Esta linea permite que aparezca el nombre del usuario arriba.
         this.txtNombreUser.setText(usr.getNombreUsuario());
+
+        cargarTabla();
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnRecargarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarTablaActionPerformed
+       cargarTabla();
+    }//GEN-LAST:event_btnRecargarTablaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -175,7 +190,44 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaUsuarios;
     private javax.swing.JTextField txtNombreUser;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarTabla() {
+        //Defino modelo de tabla
+        DefaultTableModel modeloTabla = new DefaultTableModel() {
+
+            //Sobreescribiendo este metodo consigo que filas y columnas no sean editables.
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        //Establecemos los nombres de las columnas
+        String titulos[] = {"Id", "Usuario", "Rol"};
+        //Seteamos esos titulos en nustro modelo
+        modeloTabla.setColumnIdentifiers(titulos);
+
+        //Traer de la BD la lista de usuarios, pasando por logica y por persistencia
+        List<Usuario> listaUsuarios = controlLogic.traerUsuarios();
+
+        //Confirmo que haya una lista de usuarios
+        if (listaUsuarios != null) {
+
+            //Si hay una lista de usuarios, la recorro
+            for (Usuario usu : listaUsuarios) {
+                //Como los datos que buscamos son de distintos tipos, para poder cargar los datos primero los guardo en un Objeto, el cual puede tener distintos tipos dentro.
+                Object[] objeto = {usu.getId(), usu.getNombreUsuario(), usu.getUnRol().getNombreRol()};
+
+                //Por cada objeto que cree el loop añadimos una fila que mostrará los datos de ese objeto.
+                modeloTabla.addRow(objeto);
+            }
+        }
+
+        //A nuestra en el gui le asignamos el modelo que creamos
+        tablaUsuarios.setModel(modeloTabla);
+
+    }
 }
