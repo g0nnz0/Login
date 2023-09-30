@@ -3,13 +3,13 @@ package com.mycompany.login.igu;
 
 import com.mycompany.login.logica.ControladoraLogica;
 
-public class Principal extends javax.swing.JFrame {
+public class LoginInicial extends javax.swing.JFrame {
     
     ControladoraLogica controlLogic; 
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    public LoginInicial() {
         initComponents();
         
         controlLogic =  new ControladoraLogica();
