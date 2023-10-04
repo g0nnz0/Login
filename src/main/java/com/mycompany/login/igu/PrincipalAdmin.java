@@ -61,6 +61,11 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaUsuarios);
 
         btnCrearUsuario.setText("Crear nuevo Usuario");
+        btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearUsuarioActionPerformed(evt);
+            }
+        });
 
         btnEditarUsuario.setText("Editar Usuario");
         btnEditarUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -179,6 +184,15 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private void btnRecargarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarTablaActionPerformed
        cargarTabla();
     }//GEN-LAST:event_btnRecargarTablaActionPerformed
+
+    private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
+        AltasUsuario pantalla = new AltasUsuario(controlLogic);
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
+        this.dispose();
+        
+        
+    }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

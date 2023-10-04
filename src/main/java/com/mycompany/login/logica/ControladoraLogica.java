@@ -42,4 +42,8 @@ public class ControladoraLogica {
         return controlPersis.traerUsuarios();
     }
 
+    public List<Rol> traerRoles() {
+        return controlPersis.traerRoles();
+    }
+
 }

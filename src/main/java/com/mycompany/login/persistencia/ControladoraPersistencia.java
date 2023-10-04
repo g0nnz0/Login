@@ -1,5 +1,6 @@
 package com.mycompany.login.persistencia;
 
+import com.mycompany.login.logica.Rol;
 import com.mycompany.login.logica.Usuario;
 import java.util.List;
 
@@ -10,4 +11,8 @@ public class ControladoraPersistencia {
     public List<Usuario> traerUsuarios() {
         return usuarioJPA.findUsuarioEntities();
         }
+
+    public List<Rol> traerRoles() {
+        return rolJPA.findRolEntities();
+    }
 }
