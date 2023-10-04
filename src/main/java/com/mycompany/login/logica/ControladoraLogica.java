@@ -97,4 +97,27 @@ public class ControladoraLogica {
         controlPersis.borrarUsuario(id_usuario);
     }
 
+    public Usuario traerUsuario(int id_usuario) {
+        return controlPersis.traerUsuario(id_usuario);
+    }
+
+    public void editarUsuario(Usuario usu, String usuario, String contrasena, String rolRecibido) {
+        //A usu (el usuario original) le seteo el string usuario y su contraseña
+        usu.setNombreUsuario(usuario);
+        usu.setContrasena(contrasena);
+        
+        //Al igual que en el procedure crearUsuario() de esta manera le seteo el rol.
+        Rol rolEncontrado = new Rol();
+        rolEncontrado = this.traerRol(rolRecibido);
+        
+        if (rolEncontrado != null) {
+            usu.setUnRol(rolEncontrado);
+        }
+        
+        //Le paso el usuario ya editado a la persistencia
+        controlPersis.editarUsuario(usu);
+        
+        
+    }
+
 }

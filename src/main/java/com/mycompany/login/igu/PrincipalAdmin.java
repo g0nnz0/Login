@@ -165,34 +165,52 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarUsuarioActionPerformed
-        // TODO add your handling code here:
+        //Validar que la tabla tenga elementos
+        if (tablaUsuarios.getRowCount() > 0) {
+
+            //Controla que se haya seleccionado un elemento
+            if (tablaUsuarios.getSelectedRow() != -1) {
+
+                //Obtengo la ID del elemento a editar
+                int id_usuario = Integer.parseInt(String.valueOf(tablaUsuarios.getValueAt(tablaUsuarios.getSelectedRow(), 0)));
+
+                //Llamo a la ventana de edicion.
+                EditarUsuario pantalla = new EditarUsuario(controlLogic, id_usuario);
+                pantalla.setVisible(true);
+                pantalla.setLocationRelativeTo(null);
+                
+                
+            } else {
+                mostrarMensaje("No seleccionó ningún registro", "Error", "Error al editar");
+            }
+
+        } else {
+            mostrarMensaje("La tabla está vacia", "Error", "Error al editar");
+        }
     }//GEN-LAST:event_btnEditarUsuarioActionPerformed
 
     private void btnBorrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarUsuarioActionPerformed
         //Validar que la tabla tenga elementos
         if (tablaUsuarios.getRowCount() > 0) {
-            
+
             //Controla que se haya seleccionado un elemento
             if (tablaUsuarios.getSelectedRow() != -1) {
-                
+
                 //Obtengo la ID del elemento a eliminar
-                int id_usuario =  Integer.parseInt(String.valueOf(tablaUsuarios.getValueAt(tablaUsuarios.getSelectedRow(), 0)));
-            
+                int id_usuario = Integer.parseInt(String.valueOf(tablaUsuarios.getValueAt(tablaUsuarios.getSelectedRow(), 0)));
+
                 //Llamo al metodo borrar de mi logica y le paso el ID
                 controlLogic.borrarUsuario(id_usuario);
-                
+
                 //Avisar al usuario que se borró correctamente
-                mostrarMensaje("El usuario se borró correctamente","Info","Borrado Exitoso");
-                
-                
+                mostrarMensaje("El usuario se borró correctamente", "Info", "Borrado Exitoso");
+
                 //Refrescar tabla
                 cargarTabla();
-            }
-            else{
+            } else {
                 mostrarMensaje("No seleccionó ningún registro", "Error", "Error al borrar");
             }
-        }
-        else{
+        } else {
             mostrarMensaje("La tabla está vacia", "Error", "Error al borrar");
         }
     }//GEN-LAST:event_btnBorrarUsuarioActionPerformed
@@ -210,19 +228,18 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnRecargarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarTablaActionPerformed
-       cargarTabla();
+        cargarTabla();
     }//GEN-LAST:event_btnRecargarTablaActionPerformed
 
     private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
         AltasUsuario pantalla = new AltasUsuario(controlLogic);
         pantalla.setVisible(true);
         pantalla.setLocationRelativeTo(null);
-        
-        
-        
+
+
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrarUsuario;
     private javax.swing.JButton btnCrearUsuario;
@@ -277,16 +294,14 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         JOptionPane optionPane = new JOptionPane(mensaje);
         if (tipo.equals("Info")) {
             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if (tipo.equals("Error")) {
+        } else if (tipo.equals("Error")) {
             optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
-        
-        JDialog dialog = optionPane.createDialog( titulo);
+
+        JDialog dialog = optionPane.createDialog(titulo);
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
-        
+
     }
-    
-    
+
 }
