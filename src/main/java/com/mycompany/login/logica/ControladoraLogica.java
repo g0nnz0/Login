@@ -60,6 +60,13 @@ public class ControladoraLogica {
             usu.setUnRol(rolEncontrado);
         }
         
+        //Recibo el id del metodo buscarUltimaId()
+        int id = this.buscarUltimaId();
+        
+        
+        //Se lo asigno al nuevo usuario sumandole uno.
+        usu.setId(id + 1);
+        
         controlPersis.crearUsuario(usu);
         
     }
@@ -74,6 +81,16 @@ public class ControladoraLogica {
         }
         
         return null; 
+    }
+
+    private int buscarUltimaId() {
+        List <Usuario> listaUsuarios = this.traerUsuarios();
+        
+        //Obtengo el ultimo usuario y lo asigno a usu
+        Usuario usu = listaUsuarios.get(listaUsuarios.size()-1);
+        
+        //Una vez tengo al usuario obtengo su id y lo retorno
+        return usu.getId();
     }
 
 }
