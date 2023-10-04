@@ -3,6 +3,8 @@ package com.mycompany.login.igu;
 import com.mycompany.login.logica.ControladoraLogica;
 import com.mycompany.login.logica.Rol;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 public class AltasUsuario extends javax.swing.JFrame {
 
@@ -84,7 +86,9 @@ public class AltasUsuario extends javax.swing.JFrame {
                             .addComponent(btnLimpiar))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGuardar)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnGuardar)
+                                .addGap(144, 144, 144))
                             .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -154,10 +158,12 @@ public class AltasUsuario extends javax.swing.JFrame {
         String usuario = txtUsuario.getText();
         String contrasena = txtContrasena.getText();
         String rol = (String) cmbRol.getSelectedItem();
-        
-        controlLogic.crearUsuario(usuario, contrasena, rol);
-    }//GEN-LAST:event_btnGuardarActionPerformed
 
+        controlLogic.crearUsuario(usuario, contrasena, rol);
+        
+        mostrarMensaje("Usuario creado correctamente", "Info", "Creación Exitosa");
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
@@ -171,4 +177,24 @@ public class AltasUsuario extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtContrasena;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+    
+    
+    
+    private void mostrarMensaje(String mensaje, String tipo, String titulo) {
+        JOptionPane optionPane = new JOptionPane(mensaje);
+        if (tipo.equals("Info")) {
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if (tipo.equals("Error")) {
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        
+        JDialog dialog = optionPane.createDialog( titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+        
+    }
 }
+
+
+

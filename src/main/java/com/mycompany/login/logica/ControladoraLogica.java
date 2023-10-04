@@ -93,4 +93,8 @@ public class ControladoraLogica {
         return usu.getId();
     }
 
+    public void borrarUsuario(int id_usuario) {
+        controlPersis.borrarUsuario(id_usuario);
+    }
+
 }

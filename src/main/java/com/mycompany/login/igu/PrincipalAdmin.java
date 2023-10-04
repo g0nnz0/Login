@@ -2,7 +2,10 @@ package com.mycompany.login.igu;
 
 import com.mycompany.login.logica.ControladoraLogica;
 import com.mycompany.login.logica.Usuario;
+import java.util.HashSet;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PrincipalAdmin extends javax.swing.JFrame {
@@ -166,7 +169,32 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarUsuarioActionPerformed
 
     private void btnBorrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarUsuarioActionPerformed
-        // TODO add your handling code here:
+        //Validar que la tabla tenga elementos
+        if (tablaUsuarios.getRowCount() > 0) {
+            
+            //Controla que se haya seleccionado un elemento
+            if (tablaUsuarios.getSelectedRow() != -1) {
+                
+                //Obtengo la ID del elemento a eliminar
+                int id_usuario =  Integer.parseInt(String.valueOf(tablaUsuarios.getValueAt(tablaUsuarios.getSelectedRow(), 0)));
+            
+                //Llamo al metodo borrar de mi logica y le paso el ID
+                controlLogic.borrarUsuario(id_usuario);
+                
+                //Avisar al usuario que se borró correctamente
+                mostrarMensaje("El usuario se borró correctamente","Info","Borrado Exitoso");
+                
+                
+                //Refrescar tabla
+                cargarTabla();
+            }
+            else{
+                mostrarMensaje("No seleccionó ningún registro", "Error", "Error al borrar");
+            }
+        }
+        else{
+            mostrarMensaje("La tabla está vacia", "Error", "Error al borrar");
+        }
     }//GEN-LAST:event_btnBorrarUsuarioActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -189,12 +217,12 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         AltasUsuario pantalla = new AltasUsuario(controlLogic);
         pantalla.setVisible(true);
         pantalla.setLocationRelativeTo(null);
-        this.dispose();
+        
         
         
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrarUsuario;
     private javax.swing.JButton btnCrearUsuario;
@@ -244,4 +272,21 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         tablaUsuarios.setModel(modeloTabla);
 
     }
+
+    private void mostrarMensaje(String mensaje, String tipo, String titulo) {
+        JOptionPane optionPane = new JOptionPane(mensaje);
+        if (tipo.equals("Info")) {
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if (tipo.equals("Error")) {
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        
+        JDialog dialog = optionPane.createDialog( titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+        
+    }
+    
+    
 }
